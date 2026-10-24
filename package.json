@@ -1,0 +1,17 @@
+{
+  "name": "ulanzi-unified-core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": "./host/index.js",
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}
