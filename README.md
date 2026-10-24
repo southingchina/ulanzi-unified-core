@@ -1,18 +1,18 @@
-# Ulanzi Unified Core · 统一工作台路由核心
+# Ulanzi Unified Core
 
-从 Ulanzi 统一工作台提取的独立宿主组件：动作 UUID 映射、模块实例隔离、已提交画面与按键目标绑定、Studio WebSocket 注册及重连。适合开发多个功能共存的 Deck 插件宿主。
+[English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [Español](README.es.md) | [Français](README.fr.md) | [Deutsch](README.de.md) | [Português (Brasil)](README.pt-BR.md)
 
-## 公开版包含什么
+Independent host components extracted from a unified Ulanzi Deck workbench: action UUID mapping, module-instance isolation, submitted-frame/button-target binding, and Studio WebSocket registration and reconnection. Use the Router, FrameBindings and transport classes when building a host in which several Deck functions coexist. Node.js 20+ and the ws package are required.
 
-- `host/actions.js`：原工程动作命名空间和模块映射。
-- `host/router.js`：按动作实例路由消息，隔离失活或不属于本模块的事件。
-- `host/frame-bindings.js`：按下时固定已提交目标，避免画面刷新后按键误操作。
-- `host/transport.js`：连接参数、注册、消息和断线重连。
-- `test/`：独立路由、目标绑定与真实回环 WebSocket 测试。
+## Requirements
 
-## 安装与验证
+Node.js 20+; ws
 
-Node.js 20+（本次本地使用 22）：
+## Configuration and entry points
+
+`host/actions.js`, `host/router.js`, `host/frame-bindings.js`, `host/transport.js`
+
+## Installation and usage
 
 ```shell
 git clone https://github.com/southingchina/ulanzi-unified-core.git
@@ -20,6 +20,7 @@ cd ulanzi-unified-core
 npm install --ignore-scripts
 npm test
 ```
+
 
 ```javascript
 import {Router,actions,FrameBindings,parseConnection} from './host/index.js';
@@ -29,10 +30,21 @@ const bindings=new FrameBindings();
 console.log(actions.length,parseConnection(['127.0.0.1','3906','zh_CN']));
 ```
 
-## 与完整插件的关系
 
-私有原工程还集成 CC Switch、配额/余额、AgentDeck、WorkBuddy 会话和 Clash 状态。其部分 vendor 来自本机已安装的第三方插件，目前缺少足以确认完整再分发范围的许可证材料。本仓库因此只公开以上独立宿主代码，**不是完整插件安装包，也不能构建或安装原来的 14 动作成品**。
+## Scope and limitations
 
-没有包含 vendor、第三方品牌图片、账号配置、真实会话、设备布局、安装备份或额度日志。历史原工程的完整测试及实体屏幕效果不作为这个核心仓库的验收声明；以本仓库测试为准。后续补齐来源许可后，可再独立发布集成层。
+This repository publishes only independent host code. The complete private workbench also integrates third-party AgentDeck and other vendor modules whose redistribution rights have not been fully established. Those modules, branded images, accounts, sessions, layouts and quota logs are not included. This is not a complete plugin installer and cannot build the original 14-action product. Tests cover routing, frame targets and real loopback WebSockets, not a new physical-Deck acceptance. MIT applies to this repository's code; dependencies keep their own licenses. This project is not affiliated with the vendors.
 
-MIT 适用于本仓库自身代码；Ulanzi 等商标归其权利人所有，本项目与厂商无隶属关系。npm 依赖按各自许可证提供。
+## Validation record
+
+2026-10-24 · Node / loopback WebSocket: 6 ✓
+
+## License and attribution
+
+[MIT](LICENSE)
+
+These are documentation editions. Application interfaces, CLI output and executable releases retain the behavior of the current implementation.
+
+[Complete Chinese reference](README.zh-CN.md) · [Language maintenance policy](docs/LOCALIZATION.md)
+
+[Issues](https://github.com/southingchina/ulanzi-unified-core/issues) — Report a reproducible issue with synthetic data. Remove credentials and private information from logs.
